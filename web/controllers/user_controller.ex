@@ -8,7 +8,8 @@ defmodule AuthSandbox.UserController do
 
   def index(conn, _params) do
     users = Repo.all(User)
-    render(conn, "index.html", users: users)
+    current_user = get_session conn, :logged_in
+    render(conn, "index.html", users: users, current_user: current_user)
   end
 
   def new(conn, _params) do

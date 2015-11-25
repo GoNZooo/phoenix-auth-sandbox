@@ -1,5 +1,8 @@
 <h2>Listing users</h2>
-
+<%= if @current_user do %>
+  <div>Current user</div>
+  <div><%= @current_user %></div>
+<% end %>
 <table class="table">
   <thead>
     <tr>
