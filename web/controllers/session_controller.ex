@@ -33,4 +33,10 @@ defmodule AuthSandbox.SessionController do
       nil -> render conn, "new.html", changeset: changeset
     end
   end
+
+  def logout(conn, _params) do
+    conn
+    |> put_session(:logged_in, nil)
+    |> redirect(to: page_path(conn, :index))
+  end
 end

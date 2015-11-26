@@ -22,6 +22,7 @@ defmodule AuthSandbox.Router do
 
     get "/login", SessionController, :new
     post "/login", SessionController, :create
+    get "/logout", SessionController, :logout
   end
 
   # Other scopes may use custom stacks.
