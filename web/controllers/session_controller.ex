@@ -10,8 +10,7 @@ defmodule AuthSandbox.SessionController do
   def new(conn, _params) do
     changeset = User.login_changeset(%User{})
 
-    conn
-    |> render("new.html", changeset: changeset)
+    render conn, "new.html", changeset: changeset
   end
 
   def create(conn, %{"user" => user_params}) do
