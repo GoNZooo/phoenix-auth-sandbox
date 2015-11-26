@@ -1,6 +1,8 @@
 defmodule AuthSandbox.Router do
   use AuthSandbox.Web, :router
 
+  import AuthSandbox.AuthPlug, only: [ensure_logged_in: 2]
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -13,12 +15,20 @@ defmodule AuthSandbox.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authentication_needed do
+    plug :ensure_logged_in
+  end
+
+
   scope "/", AuthSandbox do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    
-    resources "/users", UserController
+
+    scope "/users" do
+      pipe_through :authentication_needed
+      resources "/", UserController
+    end
 
     get "/login", SessionController, :new
     post "/login", SessionController, :create

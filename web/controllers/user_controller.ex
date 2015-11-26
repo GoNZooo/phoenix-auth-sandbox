@@ -3,14 +3,12 @@ defmodule AuthSandbox.UserController do
 
   alias AuthSandbox.User
   alias Comeonin.Bcrypt
-  alias AuthSandbox.Plug, as: ASPlug
 
   require Logger
 
   plug :scrub_params, "user" when action in [:create, :update]
 
   def index(conn, _params) do
-    conn = ASPlug.ensure_logged_in(conn)
     current_user = get_session(conn, :logged_in)
     users = Repo.all(User)
     render(conn, "index.html", users: users, current_user: current_user)
