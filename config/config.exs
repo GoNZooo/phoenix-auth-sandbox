@@ -7,12 +7,18 @@ use Mix.Config
 
 # Configures the endpoint
 config :auth_sandbox, AuthSandbox.Endpoint,
+  http: [port: 4000],
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "ffUxr2pxrPfois7U973fUf9UyOy782fcuNDUvJ6HxSiVcwzbl1dg4GS9BMXiQg2n",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: AuthSandbox.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+           adapter: Phoenix.PubSub.PG2],
+  https: [
+    port: 4040,
+    otp_app: :auth_sandbox,
+    keyfile: "priv/localhost_key.pem",
+    certfile: "priv/localhost_cert.pem"]
 
 # Configures Elixir's Logger
 config :logger, :console,
