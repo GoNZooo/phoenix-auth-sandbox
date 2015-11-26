@@ -26,8 +26,7 @@ defmodule AuthSandbox.SessionController do
           |> put_session(:logged_in, username)
           |> redirect(to: user_path(conn, :index))
         else
-          conn
-          |> render "new.html", changeset: changeset
+          render conn, "new.html", changeset: changeset
         end
       nil -> render conn, "new.html", changeset: changeset
     end
