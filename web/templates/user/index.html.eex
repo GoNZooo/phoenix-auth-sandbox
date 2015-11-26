@@ -1,15 +1,13 @@
 <h2>Listing users</h2>
-<%= if @current_user do %>
-  <div>
-    <span>
-      Current user:
-    </span>
-    <span><%= @current_user %></span>
-  </div>
-  <div>
-    <%= link "Log out", to: session_path(@conn, :logout), class: "btn btn-default btn-xs" %>
-  </div>
-<% end %>
+<div>
+  <span>
+    Current user:
+  </span>
+  <span><%= @current_user %></span>
+</div>
+<div>
+  <%= link "Log out", to: session_path(@conn, :logout), class: "btn btn-default btn-xs" %>
+</div>
 <table class="table">
   <thead>
     <tr>
