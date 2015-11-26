@@ -24,7 +24,7 @@ defmodule AuthSandbox.SessionController do
         pwhash = user.encrypted_password
         if Bcrypt.checkpw(pw, pwhash) do
           conn
-          |> put_session("logged_in", username)
+          |> put_session(:logged_in, username)
           |> redirect(to: user_path(conn, :index))
         else
           conn

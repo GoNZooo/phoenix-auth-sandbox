@@ -4,12 +4,18 @@ defmodule AuthSandbox.UserController do
   alias AuthSandbox.User
   alias Comeonin.Bcrypt
 
+  require Logger
+
   plug :scrub_params, "user" when action in [:create, :update]
 
   def index(conn, _params) do
-    users = Repo.all(User)
-    current_user = get_session conn, :logged_in
-    render(conn, "index.html", users: users, current_user: current_user)
+    case get_session(conn, :logged_in) do
+      nil ->
+        redirect(conn, to: session_path(conn, :new))
+      current_user ->
+        users = Repo.all(User)
+        render(conn, "index.html", users: users, current_user: current_user)
+    end
   end
 
   def new(conn, _params) do
